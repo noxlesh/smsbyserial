@@ -6,7 +6,7 @@ __author__ = 'noxlesh'
 
 import os
 import serial
-
+import argparse
 
 # Usage:
 #    SmsBySerial(number, message, port)
@@ -102,5 +102,10 @@ class SBSInitException(Exception):
 
 # For standalone usage
 if __name__ == "__main__":
-    # TODO: implement standalone usability
-    pass
+    parser = argparse.ArgumentParser()
+    parser.add_argument('number', help='Phone number', type=str)
+    parser.add_argument('message', help='SMS Text', type=str)
+    parser.add_argument('port', help='Serial port name', type=str)
+    args = parser.parse_args()
+    sbs = SmsBySerial(args.number, args.message, args.port)
+    sbs.send_sms()
